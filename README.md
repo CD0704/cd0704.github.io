@@ -1,0 +1,1 @@
+The hexo blog use fluid theme.
