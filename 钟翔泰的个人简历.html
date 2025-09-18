@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>钟翔泰的个人简历</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            display: flex;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+            position: relative;
+        }
+        
+        /* 打印按钮样式 */
+        #print-button {
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            z-index: 1000;
+            padding: 10px 20px;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: background 0.3s;
+        }
+        
+        #print-button:hover {
+            background: #1a2530;
+        }
+        
+        /* 左侧导航栏样式 */
+        #sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            background: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            overflow-y: auto;
+        }
+        
+        #sidebar h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        #nav-list {
+            list-style: none;
+        }
+        
+        #nav-list li {
+            margin-bottom: 5px;
+        }
+        
+        #nav-list a {
+            display: block;
+            color: #ddd;
+            padding: 12px 20px;
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+        
+        #nav-list a:hover, #nav-list a.active {
+            background: #34495e;
+            color: white;
+            border-left: 4px solid #e74c3c;
+        }
+        
+        /* 右侧内容区域样式 */
+        #content {
+            margin-left: 250px;
+            padding: 30px;
+            width: calc(100% - 250px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        /* 模块居中浮动样式 */
+        .float-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        section {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 900px;
+            float: none;
+            margin-left: auto;
+            margin-right: auto;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e74c3c;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        /* 个人信息样式 */
+        .profile-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .profile-info {
+            flex: 2;
+        }
+        
+        .profile-photo {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .profile-photo img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid #2c3e50;
+            object-fit: cover;
+        }
+        
+        /* 课程和经历样式 */
+        .course-item, .experience-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #eee;
+        }
+        
+        /* 滚动窗口样式 */
+        .scroll-box {
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 15px;
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        /* 技能样式 */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .skill-category {
+            flex: 1;
+            min-width: 250px;
+            margin: 10px;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            #sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            
+            #content {
+                margin-left: 0;
+                width: 100%;
+            }
+            
+            .profile-container {
+                flex-direction: column;
+            }
+            
+            #print-button {
+                top: 10px;
+                right: 10px;
+                padding: 8px 15px;
+            }
+        }
+        
+        /* 打印样式 */
+        @media print {
+            #sidebar, #print-button {
+                display: none !important;
+            }
+            
+            #content {
+                margin-left: 0 !important;
+                width: 100% !important;
+                padding: 0 !important;
+            }
+            
+            body {
+                background: white !important;
+                display: block !important;
+            }
+            
+            section {
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+                page-break-inside: avoid;
+                margin: 0 auto 20px !important;
+                padding: 15px !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                transform: none !important;
+            }
+            
+            @page {
+                size: A4;
+                margin: 1cm;
+            }
+            
+            body, p, li {
+                font-size: 12pt;
+                line-height: 1.4;
+            }
+            
+            h1 {
+                font-size: 18pt;
+            }
+            
+            h2 {
+                font-size: 16pt;
+            }
+            
+            h3 {
+                font-size: 14pt;
+            }
+            
+            .profile-photo img {
+                width: 120px !important;
+                height: 120px !important;
+            }
+            
+            .scroll-box {
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            a {
+                color: black !important;
+                text-decoration: underline !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 左侧导航栏 -->
+    <aside id="sidebar">
+        <h2>导航</h2>
+        <ul id="nav-list">
+            <li><a href="#personal-info">个人信息</a></li>
+            <li><a href="#education">教育背景</a></li>
+            <li><a href="#research">科研经历</a></li>
+            <li><a href="#work">工作经历</a></li>
+            <li><a href="#skills">技能与特长</a></li>
+            <li><a href="#interests">研究兴趣</a></li>
+            <li><a href="#evaluation">自我评价</a></li>
+        </ul>
+    </aside>
+
+    <!-- 右侧内容区域 -->
+    <main id="content">
+        <div class="float-container">
+            <!-- 个人信息部分 -->
+            <section id="personal-info">
+                <h1>个人信息</h1>
+                <div class="profile-container">
+                    <div class="profile-info">
+                        <p><strong>姓名：</strong>钟翔泰</p>
+                        <p><strong>电话：</strong>18902868167</p>
+                        <p><strong>邮箱：</strong>zhongxiangtai@stu2025.jnu.edu.cn</p>
+                        <p><strong>出生地：</strong>台湾台北</p>
+                        <p><strong>出生日期：</strong>2003年7月4日</p>
+                        <p><strong>专业：</strong>2025级 英语语言文学</p>
+                    </div>
+                    <div class="profile-photo">
+                        <img src="1.jpg" alt="个人肖像">
+                    </div>
+                </div>
+            </section>
+
+            <!-- 教育背景部分 -->
+            <section id="education">
+                <h2>本科相关课程</h2>
+                <div class="course-item">
+                    <p><strong>英语文学导论</strong> - 93分</p>
+                </div>
+                <div class="course-item">
+                    <p><strong>翻译工作坊</strong> - 优秀/课程前5%</p>
+                </div>
+                <div class="course-item">
+                    <p><strong>英语短篇小说选读</strong> - 90分</p>
+                </div>
+            </section>
+
+            <!-- 科研经历部分 -->
+            <section id="research">
+                <h2>科研经历</h2>
+                <div class="experience-item">
+                    <h3>翻译工作坊 - 《马赛克的阴影》翻译项目</h3>
+                    <p>负责翻译历史小说《The Mosaic of Shadows》章节内容，学习如何检索历史内容并结合历史环境理解文章。</p>
+                    <div class="scroll-box">
+                        <p>There was nowhere for the Emperor to hide, for the monk had him trapped on his throne. Most men would have been stilled by terror, or thought only to squirm feebly aside, but the Emperor had the instincts of a soldier and in that instant threw himself forward. It was still too late. As the two priests looked on, speechless at this murderous apparition, the monk brought his cross down like a mace on the Emperor’s head. </p>
+                        <p>在那无处遁形的王座之上，陛下被一位僧侣所困。常人遭此厄境，或许只能惊恐僵硬，或是无力地躲闪，但陛下却有着军人的本能，在那刹那间，他选择了向前冲击。然而，一切仍旧为时已晚。两位僧侣目睹此一杀戮之鬼魅，哑口无言，那僧侣将手中的十字架如同重锤般砸向陛下之首。</p>
+                    </div>
+                    <p><small>原作链接: <a href="https://www.tom-harper.co.uk/mos.htm" target="_blank">The Mosaic of Shadows</a></small></p>
+                </div>
+                
+                <div class="experience-item">
+                    <h3>英语短篇小说选读 - 卡夫卡《判决》研究</h3>
+                    <p>完成课程论文《Franz Kafka's 'The Judgment': A Study of Familial Authoritarianism and Personal Struggle》，并成功将其发展为毕业论文。</p>
+                    <div class="scroll-box">
+                        <h4>论文摘要 (中文)</h4>
+                        <p>弗朗茨·卡夫卡是20世纪文坛上的杰出人物，以其独特的叙事技巧闻名，巧妙地将个人经历与超现实主义维度交织在一起。他的代表作品《审判》正是这种独特风格的典范。这项研究旨在探索《审判》中家庭权威主义的影响，展现卡夫卡与父亲之间紧张关系对叙事结构产生的深远影响。</p>
+                        <p>本文旨在深入挖掘卡夫卡个人经历在叙事中的痕迹，精心剖析反映他自身家庭困境的错综复杂的父子关系。通过采用这种解读视角，我们的努力旨在提供对卡夫卡文学才华的细腻理解，同时揭示他作品中潜藏的心理基础。</p>
+                        
+                        <h4>Abstract (English)</h4>
+                        <p>Franz Kafka, an eminent luminary of 20th-century literary circles, is celebrated for his distinctive narrative prowess that intricately weaves personal chronicles with surrealistic dimensions. His magnum opus, "The Judgment," epitomizes this distinct stylistic imprint. This study embarks on an exploration into the reverberations of familial authoritarianism within "The Judgment," unfurling the profound impact of Kafka's fraught relationship with his patriarch on the narrative tapestry.</p>
+                        <p>This paper aims to plumb the depths of Kafka's personal odyssey imprinted within the narrative, meticulously parsing the intricate father-son dynamics that mirror the echoes of his own familial tribulations. By adopting this interpretative lens, our endeavor aspires to proffer a nuanced comprehension of Kafka's literary brilliance while unraveling the psychological substratum underpinning his oeuvre.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 工作经历部分 -->
+            <section id="work">
+                <h2>工作经历</h2>
+                <div class="experience-item">
+                    <h3>招商多经实习生 - 珠海华发海韵城新天地商业经营有限公司</h3>
+                    <p><strong>时间：</strong>2023年8月-2023年9月</p>
+                    <p><strong>职责：</strong>负责统筹、策划活动、招商、协调商户，在职期间负责招商1家，策划年度满意度调查。</p>
+                </div>
+                
+                <div class="experience-item">
+                    <h3>翻译文员实习生 - 珠海里田文化有限公司</h3>
+                    <p><strong>时间：</strong>2024年7月-2025年1月</p>
+                    <p><strong>职责：</strong>负责翻译文件、制作标书，期间接待过国际友人，负责翻译。也负责公司内网络运维、服务器维护等计算机内容。</p>
+                </div>
+            </section>
+
+            <!-- 技能与特长部分 -->
+            <section id="skills">
+                <h2>技能与特长</h2>
+                <div class="skills-container">
+                    <div class="skill-category">
+                        <h3>语言能力</h3>
+                        <ul>
+                            <li>具有流畅的英语文献阅读、翻译和学术写作能力</li>
+                            <li>普通话标准，熟练使用广东话</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3>翻译技能</h3>
+                        <ul>
+                            <li>能够进行中英文学术文本互译，有英语笔译实践经历</li>
+                            <li>具有扎实的文本分析能力，良好的跨文化理解能力</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3>技术能力</h3>
+                        <ul>
+                            <li>会爬虫、数据分析 Python 和网页制作、程序设计</li>
+                            <li>有个人网站: <a href="https://CD0704.com" target="_blank">CD0704.com</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3>音乐创作</h3>
+                        <ul>
+                            <li>会作词作曲编曲，有单曲在国内外平台发布</li>
+                            <li>代表作: <a href="https://music.163.com/#/song?id=1448940113" target="_blank">Hey</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 自我评价部分 -->
+            <section id="evaluation">
+                <h2>自我评价</h2>
+                <p>我具备扎实的英语语言文学专业基础，对美国少数族裔文学和跨文化研究抱有极大的热情。在之前的科研训练中，锻炼了文本细读、理论应用和独立研究的能力。</p>
+                <p>我严谨认真，善于思考，渴望在研究生阶段接受更系统的学术训练，致力于深入探究文学与文化现象。同时，我的技术背景和音乐创作经历也为我的学术研究提供了独特的跨学科视角和创新思维。</p>    
+                <p>我对亚裔美国文学中的身份政治、流散写作中的文化认同问题以及跨文化视角下的文学翻译有浓厚兴趣。希望能在许教授的指导下，深入探讨流散文学中的翻译与文化改写策略。</p>
+            </section> 
+        </div>
+    </main>
+
+    <script>
+        // 实现导航栏高亮功能
+        window.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('#nav-list a');
+            
+            window.addEventListener('scroll', function() {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (pageYOffset >= (sectionTop - 100)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').substring(1) === current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+            
+            // 打印按钮功能
+            document.getElementById('print-button').addEventListener('click', function() {
+                window.print();
+            });
+        });
+    </script>
+</body>
+</html>
